@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+
+        <record id="view_hospital_petinet_tree" model="ir.ui.view">
+            <field name="name">hospital.patient.tree</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="ref"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hospital_petinet_form" model="ir.ui.view">
+            <field name="name">hospital.patient.form</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="age"/>
+                            </group>
+                            <group>
+                                <field name="ref"/>
+                                <field name="gender"/>
+                                <field name="active" invisible="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hospital_petinet_search" model="ir.ui.view">
+            <field name="name">hospital.patient.search</field>
+            <field name="model">hospital.patient</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" filter_domain="['|', ('name','ilike',self), ('ref','ilike',self)]"/>
+                    <!-- filter_domain use for search in multiple field using or ('|') oparator  -->
+                    <field name="ref"/>
+                    <field name="age"/>
+                    <field name="gender"/>
+
+                    <!-- filters are used to provide default filter -->
+                    <filter name="filter_male" string="Male" domain="[('gender', '=', 'male')]"/>
+                    <filter name="filter_female" string="Female" domain="[('gender', '=', 'female')]"/>
+                    
+                    <separator/> 
+                    <!-- separetor perform and condition in beetween filters -->
+                    
+                    <filter name="filter_babes" string="Babes" domain="[('age', '&lt;',2)]"/>
+                    <filter name="filter_children" string="Children" domain="[('age', '&gt;', 2), ('age', '&lt;=', 18)]"/>
+                    <filter name="filter_adilt" string="Adult" domain="[('age', '&gt;', 18) ,('age', '&lt;=', 60)]"/>
+                    <filter name="filter_senior_citizen" string=" Senior Citizen" domain="[('age', '&gt;', 60)]"/>
+                    
+                    <separator/> 
+
+                    <filter name="filter_archived" string="Archived" domain="[('active', '=', False)]"/>
+                    
+                    <group name="male" string="string">
+                        <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}"/>
+                        <filter name="group_by_age" string="Age" context="{'group_by': 'age'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hospital_petinet" model="ir.actions.act_window">
+            <field name="name">Hospital Petinet</field>
+            <field name="res_model">hospital.patient</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Your First Patinet
+                </p>
+                <p>
+                    Booth categories are used to represent the different types of booths you rent (Premium Booth, Table and Chairs, ...)
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
