@@ -12,11 +12,12 @@
             However, HMS can be a complex system.""",
     
     'website': 'https://www.odoo.com',
-    'depends' : [ 'base',
+    'depends' : [ 'base', 'mail'
                   ],
     'data' : [
         'security/ir.model.access.csv',
         'views/view_hospital_patinet.xml',
+        'views/view_hospital_appointment.xml',
         'views/menu.xml',
      ],
     'installable': True,
