@@ -63,10 +63,10 @@
                     <separator/> 
                     <!-- separetor perform and condition in beetween filters -->
                     
-                    <filter name="filter_babes" string="Babes" domain="[('age', '&lt;',2)]"/>
+                    <!-- <filter name="filter_babes" string="Babes" domain="[('age', '&lt;',2)]"/>
                     <filter name="filter_children" string="Children" domain="[('age', '&gt;', 2), ('age', '&lt;=', 18)]"/>
                     <filter name="filter_adilt" string="Adult" domain="[('age', '&gt;', 18) ,('age', '&lt;=', 60)]"/>
-                    <filter name="filter_senior_citizen" string=" Senior Citizen" domain="[('age', '&gt;', 60)]"/>
+                    <filter name="filter_senior_citizen" string=" Senior Citizen" domain="[('age', '&gt;', 60)]"/> -->
                     
                     <separator/> 
 
@@ -74,7 +74,7 @@
                     
                     <group name="male" string="string">
                         <filter name="group_by_gender" string="Gender" context="{'group_by': 'gender'}"/>
-                        <filter name="group_by_age" string="Age" context="{'group_by': 'age'}"/>
+                        <!-- <filter name="group_by_age" string="Age" context="{'group_by': 'age'}"/> -->
                         <!-- <filter name="group_by_user" string="User" context="{'group_by': 'uid'}"/> -->
                     </group>
                     <searchpanel>

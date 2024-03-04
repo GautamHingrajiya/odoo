@@ -7,7 +7,7 @@ class HospitalPetient(models.Model):
     _description = "Hospital Petient"
 
     name = fields.Char('Patient Name', tracking=True)
-    age = fields.Integer('Patient Age', compute='_compute_age', tracking=True, store=True)
+    age = fields.Integer('Patient Age', compute='_compute_age', tracking=True)
     ref = fields.Char('Reference', tracking=True)
     gender = fields.Selection([('male', 'Male'), 
                                ('female', "Female"),
@@ -17,21 +17,12 @@ class HospitalPetient(models.Model):
     # active fields used to create archive and unarchive option in odoo. must need to add active field in views also.
     # ( here active word is reserved for archive and unarchive option)
 
-    @api.depends("dob")
+    # @api.depends("dob")
     def _compute_age(self):
-        if self.dob:
-
-        else:
-
-            today = 
-            self.age = 0
-
-
-            self.age = self.dob - date.today().year -
-            print(date.today(),"today---------------------------------------")
-            print(self.dob,"dob---------------------------------------")
-            print((self.dob)-(date.today()),"age---------------------------------------")
-
-            
-
+        for rec in self:
+            today = date.today()
+            if rec.dob:
+                rec.age = today.year - rec.dob.year
+            else:
+                rec.age = 0
 
