@@ -27,10 +27,19 @@
                                 <field name="gender"/>
                             </group>
                             <group>
-                                <field name="booking_date"/>
+                                <field name="booking_date" readonly="1"/>
                                 <field name="active" invisible="True"/>
                             </group>
                         </group>
+
+                        <notebook>
+                            <page name="prescription" string="Prescription">
+                                
+                            </page>
+                            <page name="pharmacy" string="Pharmacy">
+                                
+                            </page>
+                        </notebook>
                     </sheet>
 
                     <!-- Chatter -->
