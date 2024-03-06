@@ -18,8 +18,22 @@
             <field name="name">hospital.appointment.form</field>
             <field name="model">hospital.appointment</field>
             <field name="arch" type="xml">
-                <form>
+                <form delete="0">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_consultation,done,cancel"/>
+
+                        <button name="action_draft" string="Draft" class="oe_highlight" invisible="state in ('draft','in_consultation')"/>
+                        <button name="action_in_consultation" string="In Consultation" class="oe_highlight" invisible="state in ('in_consultation','done','cancel')"/>
+                        <button name="action_done" string="Done" class="oe_highlight" invisible="state in ('draft','done','cancel')"/>
+                        <button name="action_cancel" string="Cancel" class="oe_highlight" invisible="state in ('draft','done','cancel')"/>
+                    
+                    </header>
                     <sheet>
+                        <div class="oe_tital">
+                            <h1>
+                                <field name="priority" widget="priority"/>
+                            </h1>
+                        </div>
                         <group>
                             <group>
                                 <field name="patient_id"/>
@@ -34,7 +48,7 @@
 
                         <notebook>
                             <page name="prescription" string="Prescription">
-                                
+                                <field name="prescription" placeholder="Enter your Prescrition here........."/>
                             </page>
                             <page name="pharmacy" string="Pharmacy">
                                 
