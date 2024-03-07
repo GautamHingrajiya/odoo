@@ -26,3 +26,5 @@ class HospitalPetient(models.Model):
             else:
                 rec.age = 0
 
+    
+

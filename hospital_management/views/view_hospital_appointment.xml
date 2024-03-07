@@ -6,10 +6,18 @@
             <field name="name">hospital.appointment.tree</field>
             <field name="model">hospital.appointment</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree sample="1" multi_edit="1" decoration-success="state == 'done'" decoration-danger="state == 'cancel'"
+                      decoration-info="state == 'in_consultation'">    
                     <field name="patient_id"/>
-                    <field name="appointment_time"/>
+                    <field name="doctor_id" widget='many2one_avatar_user'/>
+                    <field name="appointment_time" />
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
                     <field name="booking_date"/>
+                    <field name="priority" optional="show"/>
+                    <field name="prescription" optional="hide" />
+                    <field name="state" widget="badge" 
+                    decoration-success="state == 'done'" decoration-danger="state == 'cancel'"
+                    decoration-warning="state == 'draft'" decoration-info="state == 'in_consultation'"/>
                 </tree>
             </field>
         </record>
@@ -20,13 +28,17 @@
             <field name="arch" type="xml">
                 <form delete="0">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,in_consultation,done,cancel"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,in_consultation,done"/>
 
-                        <button name="action_draft" string="Draft" class="oe_highlight" invisible="state in ('draft','in_consultation')"/>
-                        <button name="action_in_consultation" string="In Consultation" class="oe_highlight" invisible="state in ('in_consultation','done','cancel')"/>
-                        <button name="action_done" string="Done" class="oe_highlight" invisible="state in ('draft','done','cancel')"/>
-                        <button name="action_cancel" string="Cancel" class="oe_highlight" invisible="state in ('draft','done','cancel')"/>
-                    
+                        <button name="action_draft" string="Draft" class="oe_highlight" 
+                                type="object" invisible="state in ('draft','in_consultation','done')"
+                                confirm="Are you sure you want to move this Appoinment to Draft Again ?"/>
+                        <button name="action_in_consultation" string="In Consultation" class="oe_highlight" 
+                                type="object" invisible="state in ('in_consultation','done','cancel')"/>
+                        <button name="action_done" string="Done" class="oe_highlight" data-hotkey="v"
+                                type="object" invisible="state in ('draft','done','cancel')"/>
+                        <button name="action_cancel" string="Cancel" class="oe_highlight" data-hotkey="z"
+                                type="object" invisible="state in ('draft','done','cancel')"/>
                     </header>
                     <sheet>
                         <div class="oe_tital">
@@ -36,26 +48,26 @@
                         </div>
                         <group>
                             <group>
-                                <field name="patient_id"/>
+                                <field name="patient_id" default_focus="1"/>
                                 <field name="appointment_time"/>
                                 <field name="gender"/>
                             </group>
                             <group>
+                                <field name="doctor_id" widget="many2one_avatar"/>
                                 <field name="booking_date" readonly="1"/>
                                 <field name="active" invisible="True"/>
                             </group>
                         </group>
-
                         <notebook>
                             <page name="prescription" string="Prescription">
-                                <field name="prescription" placeholder="Enter your Prescrition here........."/>
+                                <field name="prescription" options="{'collaborative': true, 'resizable': true}"  
+                                       placeholder="Enter your Prescrition here........."/>
                             </page>
                             <page name="pharmacy" string="Pharmacy">
                                 
                             </page>
                         </notebook>
                     </sheet>
-
                     <!-- Chatter -->
                     <div class="oe_chatter">
                         <field name="message_follower_ids" groups="base.group_user"/>
