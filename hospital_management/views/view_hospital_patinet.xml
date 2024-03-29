@@ -33,6 +33,11 @@
                                 <field name="active" invisible="True"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page name="Appointment" string="Appointment">
+                                <field name="appointment_ids"></field>
+                            </page>
+                        </notebook>
                     </sheet>
 
                     <!-- Chatter -->

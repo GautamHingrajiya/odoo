@@ -14,6 +14,7 @@ class HospitalPetient(models.Model):
                                ('other', 'Other')], 'Patient Gender',required=True, tracking=True)
     dob = fields.Date('Date of Birth', required=True)
     active = fields.Boolean('Active', default = True, tracking=True)
+    appointment_ids = fields.One2many('hospital.appointment','patient_id', string="Appointments")
     # active fields used to create archive and unarchive option in odoo. must need to add active field in views also.
     # ( here active word is reserved for archive and unarchive option)
 
@@ -25,6 +26,3 @@ class HospitalPetient(models.Model):
                 rec.age = today.year - rec.dob.year
             else:
                 rec.age = 0
-
-    
-

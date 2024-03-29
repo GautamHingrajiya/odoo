@@ -8,6 +8,7 @@ class HospitalAppointment(models.Model):
 
     patient_id = fields.Many2one('hospital.patient', string="patient", required=True)
     doctor_id = fields.Many2one('res.users',string="Doctor", required=True)
+    medicine_ids = fields.One2many('patient.medicine', 'appointment_id', string="Medicines", required=True)
     active = fields.Boolean('Active', default = True, tracking=True)
     appointment_time = fields.Datetime('Appointment Time', required=True, default=fields.Datetime.now())
     booking_date = fields.Date('Booking Date', default=fields.Datetime.now())
